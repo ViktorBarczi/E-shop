@@ -26,5 +26,5 @@ public class Product {
 
     private String unit;
 
-    private Number price;
+    private double price;
 }

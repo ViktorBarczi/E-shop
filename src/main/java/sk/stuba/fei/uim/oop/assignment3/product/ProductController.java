@@ -19,29 +19,19 @@ public class ProductController {
         return this.service.getAll().stream().map(ProductResponse::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
-    public ProductResponse getProductsById(@PathVariable("id") Long id) {
-        return new ProductResponse(this.service.getProductsById(id));
-    }
-
-    @GetMapping("/{id}/amount")
-    public AmountResponse getAmount(@PathVariable("id") Long id){
-        return new AmountResponse(this.service.getAmount(id));
-    }
-
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse addProduct(@RequestBody ProductRequest request){
         return new ProductResponse(this.service.create(request));
     }
 
-    @PostMapping("/{id}/amount")
-    public AmountResponse addAmount(@PathVariable("id") Long id, @RequestBody AmountRequest requestAmount){
-        return new AmountResponse(this.service.addAmount(id, requestAmount));
+    @GetMapping("/{id}")
+    public ProductResponse getProductsById(@PathVariable("id") Long id) {
+        return new ProductResponse(this.service.getProduct(id));
     }
 
     @PutMapping("/{id}")
-    public ProductResponse addProduct(@PathVariable("id") Long id, @RequestBody ProductRequestUpdate request){
+    public ProductResponse addProduct(@PathVariable("id") Long id, @RequestBody UpdateRequest request){
         return new ProductResponse(this.service.update(id, request));
     }
 
@@ -49,4 +39,16 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         this.service.delete(id);
     }
+
+
+    @GetMapping("/{id}/amount")
+    public AmountResponse getAmount(@PathVariable("id") Long id){
+        return new AmountResponse(this.service.getAmountFromProduct(id));
+    }
+
+    @PostMapping("/{id}/amount")
+    public AmountResponse addAmount(@PathVariable("id") Long id, @RequestBody AmountRequest requestAmount){
+        return new AmountResponse(this.service.addAmountToProduct(id, requestAmount));
+    }
 }
+

@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
-
     @Autowired
     private ICartService service;
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<CartResponse> addCart(){
         return new ResponseEntity<>(new CartResponse(this.service.create()), HttpStatus.CREATED);
     }
@@ -33,6 +32,6 @@ public class CartController {
     @GetMapping("/{id}/pay")
     public String payForShopping(@PathVariable("id") Long id){
         return this.service.payForShopping(id);
-    }
+    }*/
 
 }

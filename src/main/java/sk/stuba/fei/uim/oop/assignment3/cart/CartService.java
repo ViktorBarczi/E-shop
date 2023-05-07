@@ -1,5 +1,8 @@
 package sk.stuba.fei.uim.oop.assignment3.cart;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CartService implements ICartService{
     @Override
     public Cart create() {

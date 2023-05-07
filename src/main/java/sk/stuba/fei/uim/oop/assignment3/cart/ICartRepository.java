@@ -1,4 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3.cart;
 
-public interface ICartRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface ICartRepository extends CrudRepository<Cart, Long> {
 }

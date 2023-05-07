@@ -17,36 +17,59 @@ public class ProductService implements IProductService{
 
     @Override
     public List<Product> getAll() {
-        return null;
+        return this.repository.findAll();
     }
 
     @Override
-    public Product create(ProductRequest request) {
-        return null;
+    public Product update(Long id, UpdateRequest request) {
+        Product pById = repository.findById(id).orElseThrow();
+
+        pById.setDescription(request.getDescr());
+        pById.setName(request.getName());
+
+        return  pById;
     }
 
     @Override
-    public Product getProductsById(Long id) {
-        return null;
+    public Product getProduct(Long id) {
+        return this.repository.findById(id).orElseThrow();
     }
 
     @Override
-    public Product update(Long id, ProductRequest request) {
-        return null;
+    public Product create(ProductRequest requestProduct) {
+        Product newProduct = new Product();
+
+        newProduct.setAmount(requestProduct.getAmount());
+        newProduct.setId(requestProduct.getId());
+        newProduct.setPrice(requestProduct.getPrice());
+        newProduct.setName(requestProduct.getName());
+        newProduct.setUnit(requestProduct.getUnit());
+        newProduct.setDescription(requestProduct.getDescription());
+
+        return newProduct;
     }
+
+
 
     @Override
     public void delete(Long id) {
+        this.repository.delete(this.repository.findById(id).orElseThrow());
+    }
 
+
+    @Override
+    public int addAmountToProduct(Long id, AmountRequest requestAmount) {
+        Product product = this.repository.findById(id).orElseThrow();
+        
+        product.setAmount(requestAmount.getAmount());
+
+        return product.getAmount();
     }
 
     @Override
-    public int getAmount(Long id) {
-        return 0;
+    public int getAmountFromProduct(Long id) {
+        Product product = this.repository.findById(id).orElseThrow();
+        return product.getAmount();
     }
 
-    @Override
-    public int addAmount(Long id, Amount requestAmount) {
-        return 0;
-    }
 }
