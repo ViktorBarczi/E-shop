@@ -3,9 +3,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
+@Entity
 @Getter
 @Setter
 public class ListItem {
@@ -13,8 +14,4 @@ public class ListItem {
     private Long productId;
     private int amount;
 
-    public ListItem(ListItemRequest itemRequest) {
-        this.productId = itemRequest.getProductId();
-        this.amount = itemRequest.getAmount();
-    }
 }

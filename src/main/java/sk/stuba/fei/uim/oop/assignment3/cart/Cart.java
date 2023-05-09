@@ -15,10 +15,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@OneToMany
-   // private List<ListItem> shoppingList = new ArrayList<>();
+    private Boolean pay;
 
-    private Boolean payed;
+    @OneToMany
+    private List<ListItem> items = new ArrayList<>();
+
+
 
 
 }
