@@ -50,7 +50,8 @@ public class ProductService implements IProductService{
     @Override
     public AmountResponse addAmountToProduct(Long id, AmountRequest request) {
         Product product = this.repository.findById(id).orElseThrow();
-        product.setAmount(request.getAmount() + product.getAmount());
+        int amount = request.getAmount() + product.getAmount();
+        product.setAmount(amount);
         return new AmountResponse(product.getAmount());
     }
 

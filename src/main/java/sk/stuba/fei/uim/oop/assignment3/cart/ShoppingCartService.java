@@ -39,7 +39,7 @@ public class ShoppingCartService implements IShoppingCartService{
     public ShoppingCart addToCart(long productId, long cartId, long amount){
         Product product = this.productService.getProduct(productId);
         ShoppingCart c = this.repository.findById(cartId).orElseThrow();
-        ItemList shopList = null;
+        ItemList itemList = null;
         if (product.getAmount() < amount || c.isPayed()) {
             throw new BadRequestException();
         }
@@ -47,20 +47,20 @@ public class ShoppingCartService implements IShoppingCartService{
         this.productService.amountDecrease(productId, (int)amount);
         for (ItemList items : c.getShoppingItemList()) {
             if(items.getProdId() == productId) {
-                shopList = items;
+                itemList = items;
             }
         }
-        if(shopList == null) {
-            shopList = new ItemList();
-            shopList.setAmount(amount);
-            shopList.setProdId(productId);
-            shopList.setCart(c);
-            c.getShoppingItemList().add(shopList);
+        if(itemList != null) {
+            itemList.setAmount(itemList.getAmount() + amount);
         }
         else {
-            shopList.setAmount(shopList.getAmount() + amount);
+            itemList = new ItemList();
+            itemList.setAmount(amount);
+            itemList.setProdId(productId);
+            itemList.setCart(c);
+            c.getShoppingItemList().add(itemList);
         }
-        this.itemListRepository.save(shopList);
+        this.itemListRepository.save(itemList);
         this.repository.save(c);
         return c;
     }
