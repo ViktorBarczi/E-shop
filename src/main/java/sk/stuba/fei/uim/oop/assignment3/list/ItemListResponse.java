@@ -15,8 +15,8 @@ public class ItemListResponse {
     private Long productId;
     private Long amount;
 
-    public ItemListResponse(Long productId, Long amount) {
-        this.productId = productId;
+    public ItemListResponse(Long prodId, Long amount) {
+        this.productId = prodId;
         this.amount = amount;
     }
 }

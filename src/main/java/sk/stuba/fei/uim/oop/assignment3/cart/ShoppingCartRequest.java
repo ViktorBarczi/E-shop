@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class CartRequest {
+public class ShoppingCartRequest {
 
     private Long id;
     private List<ItemListResponse> product;

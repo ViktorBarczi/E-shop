@@ -17,13 +17,13 @@ public class ShoppingCartController {
     private ShoppingCartService service;
 
     @GetMapping()
-    public List<CartResponse> getAllCart() {
-        return this.service.getAll().stream().map(CartResponse::new).collect(Collectors.toList());
+    public List<ShoppingCartResponse> getAllCart() {
+        return this.service.getAll().stream().map(ShoppingCartResponse::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public CartResponse getAllCartsById(@PathVariable("id") Long id) {
-        return new CartResponse(this.service.getAllById(id));
+    public ShoppingCartResponse getAllCartsById(@PathVariable("id") Long id) {
+        return new ShoppingCartResponse(this.service.getAllById(id));
     }
 
     @GetMapping("/{id}/pay")
@@ -34,13 +34,13 @@ public class ShoppingCartController {
     }
 
     @PostMapping()
-    public ResponseEntity<CartResponse> addCart() {
-        return new ResponseEntity<>(new CartResponse(this.service.createCart()), HttpStatus.CREATED);
+    public ResponseEntity<ShoppingCartResponse> addCart() {
+        return new ResponseEntity<>(new ShoppingCartResponse(this.service.createCart()), HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/add")
-    public ResponseEntity<CartResponse> addProductToCart(@PathVariable("id") long cartId, @RequestBody ItemListRequest shoppingListRequest) {
-        return new ResponseEntity<>(new CartResponse(this.service.addToCart(shoppingListRequest.getProductId(), cartId, shoppingListRequest.getAmount())), HttpStatus.OK);
+    public ResponseEntity<ShoppingCartResponse> addProductToCart(@PathVariable("id") long cartId, @RequestBody ItemListRequest shoppingListRequest) {
+        return new ResponseEntity<>(new ShoppingCartResponse(this.service.addToCart(shoppingListRequest.getProductId(), cartId, shoppingListRequest.getAmount())), HttpStatus.OK);
     }
 
 

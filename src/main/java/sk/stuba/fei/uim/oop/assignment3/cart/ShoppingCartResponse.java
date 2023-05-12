@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CartResponse {
+public class ShoppingCartResponse {
 
 
     private Long id;
@@ -16,12 +16,13 @@ public class CartResponse {
 
     private boolean payed;
 
-    public CartResponse(ShoppingCart c) {
+    public ShoppingCartResponse(ShoppingCart c) {
         this.shoppingList = new ArrayList<>();
         this.id = c.getId();
-        for(ItemList sL : c.getShoppingItemList()){
-            shoppingList.add(new ItemListResponse(sL.getProdId(), sL.getAmount()));
+        for(ItemList iList : c.getShoppingItemList()){
+            ItemListResponse newItem = new ItemListResponse(iList.getProdId(), iList.getAmount());
+            shoppingList.add(newItem);
         }
-        this.payed = c.isPay();
+        this.payed = c.isPayed();
     }
 }

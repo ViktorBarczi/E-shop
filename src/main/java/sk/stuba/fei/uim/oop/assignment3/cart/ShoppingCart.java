@@ -20,9 +20,8 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany
     private List<ItemList> shoppingItemList = new ArrayList<>();
 
-    private boolean pay = false;
+    private boolean payed = false;
 }
-

@@ -12,10 +12,10 @@ import java.util.List;
 
 
 @Service
-public class ShoppingCartService implements ICartService{
+public class ShoppingCartService implements IShoppingCartService{
 
 
-    private final ICartRepository repository;
+    private final IShoppingCartRepository repository;
 
     @Autowired
     private ItemListRepository itemListRepository;
@@ -24,7 +24,7 @@ public class ShoppingCartService implements ICartService{
     private IProductService productService;
 
     @Autowired
-    public ShoppingCartService(ICartRepository repository) {
+    public ShoppingCartService(IShoppingCartRepository repository) {
         this.repository = repository;
     }
 
@@ -36,21 +36,15 @@ public class ShoppingCartService implements ICartService{
 
 
     @Override
-    public ShoppingCart addToCart(long productId, long cardId, long amount){
+    public ShoppingCart addToCart(long productId, long cartId, long amount){
         Product product = this.productService.getProduct(productId);
-        ShoppingCart c = this.repository.findById(cardId).orElseThrow();
-
-        if (product.getAmount() < amount) {
-            throw new BadRequestException();
-        }
-
-        if (c.isPay()) {
+        ShoppingCart c = this.repository.findById(cartId).orElseThrow();
+        ItemList shopList = null;
+        if (product.getAmount() < amount || c.isPayed()) {
             throw new BadRequestException();
         }
 
         this.productService.amountDecrease(productId, (int)amount);
-        ItemList  shopList = null;
-
         for (ItemList items : c.getShoppingItemList()) {
             if(items.getProdId() == productId) {
                 shopList = items;
@@ -76,17 +70,18 @@ public class ShoppingCartService implements ICartService{
 
         ShoppingCart newC = new ShoppingCart();
         newC.getShoppingItemList().clear();
-        newC.setPay(false);
+        newC.setPayed(false);
         return this.repository.save(newC);
 
     }
 
-
-    public double pay(long cardId) {
+    @Override
+    public double pay(long id) {
         double p = 0d;
-        ShoppingCart shoppingCart = this.repository.findById(cardId).orElseThrow();
-        if(!(shoppingCart.isPay())) {
-            shoppingCart.setPay(true);
+        ShoppingCart shoppingCart = this.repository.findById(id).orElseThrow();
+        boolean pay = shoppingCart.isPayed();
+        if(!pay) {
+            shoppingCart.setPayed(true);
         }else {
             throw new BadRequestException();
         }
