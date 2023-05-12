@@ -17,10 +17,10 @@ public class CartResponse {
     private boolean payed;
 
     public CartResponse(ShoppingCart c) {
-        this.shoppingList = new ArrayList<ItemListResponse>();
+        this.shoppingList = new ArrayList<>();
         this.id = c.getId();
         for(ItemList sL : c.getShoppingItemList()){
-            shoppingList.add(new ItemListResponse((Long)sL.getProdId() , sL.getAmount()));
+            shoppingList.add(new ItemListResponse(sL.getProdId(), sL.getAmount()));
         }
         this.payed = c.isPay();
     }

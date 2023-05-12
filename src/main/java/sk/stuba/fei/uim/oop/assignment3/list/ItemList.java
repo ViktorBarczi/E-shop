@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.cart.ShoppingCart;
-import sk.stuba.fei.uim.oop.assignment3.cart.ShoppingCart;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
-//@Table(name="ShoppingLists")
+
 public class ItemList {
 
     @Id
@@ -23,7 +22,6 @@ public class ItemList {
 
     @ManyToOne
     @JsonIgnore
-    //@JoinColumn(name = "cart_id")
     private ShoppingCart cart;
 
     private long prodId;

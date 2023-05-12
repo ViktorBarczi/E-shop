@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-//@Table(name="carts")
+
 public class ShoppingCart {
 
     @Id
@@ -21,7 +21,7 @@ public class ShoppingCart {
     private Long id;
 
     @OneToMany(mappedBy = "cart")
-    private List<ItemList> shoppingItemList = new ArrayList<ItemList>();
+    private List<ItemList> shoppingItemList = new ArrayList<>();
 
     private boolean pay = false;
 }

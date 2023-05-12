@@ -18,7 +18,7 @@ public class ShoppingCartController {
 
     @GetMapping()
     public List<CartResponse> getAllCart() {
-        return this.service.getAll().stream().map(CartResponse::new).collect(Collectors.toList());//prechadza cez kazde prvky a zmeni ho na ProductResponse
+        return this.service.getAll().stream().map(CartResponse::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
@@ -29,7 +29,7 @@ public class ShoppingCartController {
     @GetMapping("/{id}/pay")
     public ResponseEntity<String> payCart(@PathVariable("id") long cartId) {
         String resp = String.valueOf(this.service.pay(cartId));
-        return new ResponseEntity<String>(resp, HttpStatus.OK);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
 
     }
 
