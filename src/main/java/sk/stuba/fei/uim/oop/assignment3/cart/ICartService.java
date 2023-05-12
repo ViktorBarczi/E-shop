@@ -1,13 +1,13 @@
 package sk.stuba.fei.uim.oop.assignment3.cart;
 
+import java.util.List;
+
 public interface ICartService {
-    Cart create();
-
-    Cart getShoppingCartById(Long id);
-
-    void deleteShoppingCartById(Long id);
-
-    Cart addProductToCart(Long id, ListItemRequest item);
-
-    String payForShopping(Long id);
+    List<ShoppingCart> getAll();
+    ShoppingCart addToCart(long productId, long cardId, long amount);
+    ShoppingCart createCart();
+    ShoppingCart getAllById(Long id);
+    void deleteCart(Long id);
+    double pay(long cardId);
 }
+

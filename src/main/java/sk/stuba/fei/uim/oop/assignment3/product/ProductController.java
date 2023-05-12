@@ -3,6 +3,8 @@ package sk.stuba.fei.uim.oop.assignment3.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.amount.AmountRequest;
+import sk.stuba.fei.uim.oop.assignment3.amount.AmountResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,29 +17,29 @@ public class ProductController {
     private IProductService service;
 
     @GetMapping()
-    public List<ProductResponse> getAllProducts() {
+    public List<ProductResponse> getAll() {
         return this.service.getAll().stream().map(ProductResponse::new).collect(Collectors.toList());
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse addProduct(@RequestBody ProductRequest request){
-        return new ProductResponse(this.service.create(request));
+    public ProductResponse addProd(@RequestBody ProductRequest request){
+        return new ProductResponse(this.service.createNewProduct(request));
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProductsById(@PathVariable("id") Long id) {
+    public ProductResponse getProdById(@PathVariable("id") Long id) {
         return new ProductResponse(this.service.getProduct(id));
     }
 
     @PutMapping("/{id}")
-    public ProductResponse addProduct(@PathVariable("id") Long id, @RequestBody UpdateRequest request){
-        return new ProductResponse(this.service.update(id, request));
+    public ProductResponse addProd(@PathVariable("id") Long id, @RequestBody ProductRequest request){
+        return new ProductResponse(this.service.updateProduct(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
-        this.service.delete(id);
+    public void deleteProd(@PathVariable("id") Long id){
+        this.service.deleteProduct(id);
     }
 
 
@@ -47,8 +49,8 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/amount")
-    public AmountResponse addAmount(@PathVariable("id") Long id, @RequestBody AmountRequest requestAmount){
-        return new AmountResponse(this.service.addAmountToProduct(id, requestAmount));
+    public AmountResponse addAmount(@PathVariable("id") Long id, @RequestBody AmountRequest request){
+        return this.service.addAmountToProduct(id, request);
     }
 }
 

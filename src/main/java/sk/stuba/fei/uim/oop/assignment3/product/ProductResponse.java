@@ -14,6 +14,9 @@ public class ProductResponse {
 
 
     public ProductResponse(Product product) {
+        if(product==null){
+            return;
+        }
         this.id = product.getId();
         this.name = product.getName();
         this.unit = product.getUnit();

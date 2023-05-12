@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3.product;
+package sk.stuba.fei.uim.oop.assignment3.amount;
 
 import lombok.Getter;
 @Getter
